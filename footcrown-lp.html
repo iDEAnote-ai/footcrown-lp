@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOOTCROWN UNITED FUKUOKA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --deep: #0a0a0f;
+    --gold: #b8962e;
+    --gold-light: #d4af55;
+    --gold-pale: #e8d5a0;
+    --white: #f0ece4;
+    --grey: #4a4a52;
+    --grey-light: #7a7a85;
+    --border: rgba(184,150,46,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--white);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NOISE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.5rem 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.15em;
+    color: var(--gold-light);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--grey-light);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 6vw 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Diagonal lines */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 80px,
+      rgba(184,150,46,0.03) 80px,
+      rgba(184,150,46,0.03) 81px
+    );
+  }
+
+  /* Center glow */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(184,150,46,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.2s;
+    position: relative; z-index: 1;
+  }
+
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: '';
+    width: 3rem; height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.4s;
+    position: relative; z-index: 1;
+  }
+
+  .hero-title-gold {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-pale) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.5s;
+    position: relative; z-index: 1;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: var(--gold-pale);
+    letter-spacing: 0.1em;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.7s;
+    position: relative; z-index: 1;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.9s;
+    position: relative; z-index: 1;
+  }
+
+  .btn-gold {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--black);
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-family: 'Noto Sans JP', sans-serif;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .btn-gold::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -75%;
+    width: 50%; height: 200%;
+    background: rgba(255,255,255,0.3);
+    transform: skewX(-20deg);
+    transition: left 0.5s;
+  }
+
+  .btn-gold:hover::after { left: 125%; }
+  .btn-gold:hover { transform: translateY(-2px); }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    border: 1px solid var(--border);
+    color: var(--gold-pale);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+    box-shadow: 0 0 20px rgba(184,150,46,0.15);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.35em;
+    color: var(--grey);
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    width: 1px; height: 3rem;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollLine 2s ease infinite;
+  }
+
+  /* ── STATS ── */
+  .stats {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 6vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    background: linear-gradient(135deg, var(--gold), var(--gold-pale));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--grey-light);
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 8rem 6vw;
+  }
+
+  .sec-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .sec-label::before {
+    content: '';
+    width: 2rem; height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .sec-title-italic {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--gold-pale);
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  /* ── CONCEPT ── */
+  .concept {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .concept-text p {
+    font-size: 0.9rem;
+    line-height: 2.3;
+    color: var(--grey-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .concept-text p strong {
+    color: var(--gold-pale);
+    font-weight: 400;
+  }
+
+  .concept-visual {
+    position: relative;
+    aspect-ratio: 1;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .concept-visual::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, var(--gold) 0%, transparent 50%, var(--gold) 100%);
+    opacity: 0.3;
+  }
+
+  .concept-visual-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem;
+  }
+
+  .crown-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 20px rgba(184,150,46,0.5));
+  }
+
+  .concept-visual-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-light);
+  }
+
+  /* ── PILLARS ── */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pillar {
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s, box-shadow 0.4s;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .pillar:hover { border-color: rgba(184,150,46,0.4); box-shadow: 0 0 30px rgba(184,150,46,0.08); }
+  .pillar:hover::before { transform: scaleX(1); }
+
+  .pillar-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: rgba(184,150,46,0.08);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .pillar h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    color: var(--gold-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .pillar-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gold-pale);
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  .pillar p {
+    font-size: 0.8rem;
+    line-height: 2;
+    color: var(--grey-light);
+  }
+
+  /* ── NETWORK ── */
+  .network {
+    background: linear-gradient(135deg, rgba(184,150,46,0.04) 0%, transparent 50%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .network-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .network-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .network-item {
+    background: var(--deep);
+    padding: 1.5rem 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: background 0.3s;
+  }
+
+  .network-item:hover { background: rgba(184,150,46,0.04); }
+
+  .network-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--gold);
+  }
+
+  .network-item-text h4 {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .network-item-text p {
+    font-size: 0.72rem;
+    color: var(--grey-light);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SOLUTION ── */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 4rem auto 0;
+  }
+
+  .solution-item {
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    transition: all 0.4s;
+  }
+
+  .solution-item:hover {
+    border-color: rgba(184,150,46,0.4);
+    box-shadow: 0 0 40px rgba(184,150,46,0.06);
+  }
+
+  .solution-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .solution-body h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .solution-body p {
+    font-size: 0.8rem;
+    line-height: 2;
+    color: var(--grey-light);
+  }
+
+  /* ── PARTNERSHIP ── */
+  .partnership {
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(184,150,46,0.04) 50%, transparent);
+  }
+
+  .partnership-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .partnership p {
+    font-size: 0.9rem;
+    line-height: 2.3;
+    color: var(--grey-light);
+    margin-bottom: 3rem;
+  }
+
+  .partnership-types {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .p-type {
+    padding: 0.6rem 1.5rem;
+    border: 1px solid var(--border);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-pale);
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .p-type:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+    background: rgba(184,150,46,0.05);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center;
+    padding: 10rem 6vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 80px,
+      rgba(184,150,46,0.02) 80px,
+      rgba(184,150,46,0.02) 81px
+    );
+  }
+
+  .cta-section::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(184,150,46,0.06) 0%, transparent 70%);
+  }
+
+  .cta-inner {
+    position: relative; z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .cta-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--gold-pale);
+    margin-bottom: 2rem;
+  }
+
+  .cta-text {
+    font-size: 0.88rem;
+    line-height: 2;
+    color: var(--grey-light);
+    margin-bottom: 3rem;
+  }
+
+  .cta-btns {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .footer-copy {
+    font-size: 0.65rem;
+    color: var(--grey);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollLine {
+    0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    51% { transform-origin: bottom; }
+    100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .concept { grid-template-columns: 1fr; gap: 3rem; }
+    .concept-visual { display: none; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .network-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .solution-grid { grid-template-columns: 1fr; }
+    .cta-btns { flex-direction: column; align-items: center; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .hero-cta { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">FOOTCROWN</div>
+  <ul class="nav-links">
+    <li><a href="#concept">CONCEPT</a></li>
+    <li><a href="#network">NETWORK</a></li>
+    <li><a href="#solution">SOLUTION</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Fukuoka — Est. 2024</div>
+  <div class="hero-title">FOOTCROWN</div>
+  <div class="hero-title-gold">UNITED FUKUOKA</div>
+  <div class="hero-subtitle">— 頂点を、福岡から。</div>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-gold">パートナーシップを検討する</a>
+    <a href="#concept" class="btn-outline">詳しく見る</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item reveal">
+    <div class="stat-num">福岡</div>
+    <div class="stat-label">拠点都市</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.1s">
+    <div class="stat-num">TOP</div>
+    <div class="stat-label">クラスのネットワーク</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.2s">
+    <div class="stat-num">地域</div>
+    <div class="stat-label">に根ざした活動</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.3s">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">可能性</div>
+  </div>
+</div>
+
+<!-- CONCEPT -->
+<section id="concept" style="padding: 8rem 6vw;">
+  <div class="concept">
+    <div class="reveal">
+      <div class="sec-label">CONCEPT</div>
+      <div class="sec-title">OUR<br>VISION</div>
+      <div class="sec-title-italic">― 頂点という名の文化を創る</div>
+      <div style="width: 3rem; height: 1px; background: var(--gold); opacity: 0.5; margin-bottom: 2rem;"></div>
+      <p style="font-size:0.9rem; line-height:2.3; color:var(--grey-light); margin-bottom:1.5rem;">
+        FOOTCROWN UNITED FUKUOKAは、<strong style="color:var(--gold-pale); font-weight:400;">フットボールと地域をつなぐ</strong>プラットフォームとして生まれました。スポーツの力で人と人、組織と地域を結び、福岡から新しい文化を発信します。
+      </p>
+      <p style="font-size:0.9rem; line-height:2.3; color:var(--grey-light);">
+        頂点（CROWN）とは、勝利だけを意味しない。関わるすべての人が<strong style="color:var(--gold-pale); font-weight:400;">誇りを持てる場所</strong>をつくること——それが私たちの使命です。
+      </p>
+    </div>
+    <div class="concept-visual reveal" style="transition-delay:0.2s">
+      <div class="concept-visual-inner">
+        <div class="crown-icon">👑</div>
+        <div class="concept-visual-text">FUKUOKA<br>CROWN</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PILLARS -->
+<section style="padding: 8rem 6vw;">
+  <div style="text-align:center; margin-bottom: 1rem;" class="reveal">
+    <div class="sec-label" style="justify-content:center;">PILLARS</div>
+    <div class="sec-title">THREE<br>PILLARS</div>
+    <div class="sec-title-italic">― 私たちを支える3つの柱</div>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar reveal">
+      <div class="pillar-num">01</div>
+      <h3>FOOTBALL</h3>
+      <div class="pillar-sub">フットボールの力</div>
+      <p>フットサル・サッカーを核として、プレイヤーの育成からチーム運営まで。競技の楽しさと真剣さを両立した環境を提供します。</p>
+    </div>
+    <div class="pillar reveal" style="transition-delay:0.15s">
+      <div class="pillar-num">02</div>
+      <h3>COMMUNITY</h3>
+      <div class="pillar-sub">地域とのつながり</div>
+      <p>福岡という地域に深く根ざし、スポーツを通じた人と人のつながりを生み出す。地域の誇りとなるクラブを目指します。</p>
+    </div>
+    <div class="pillar reveal" style="transition-delay:0.3s">
+      <div class="pillar-num">03</div>
+      <h3>BUSINESS</h3>
+      <div class="pillar-sub">持続可能な仕組み</div>
+      <p>スポーツビジネスとして成立する持続可能な構造を設計。パートナー企業と共に、新しいスポーツ経済圏をつくります。</p>
+    </div>
+  </div>
+</section>
+
+<!-- NETWORK -->
+<section class="network" id="network">
+  <div class="network-inner">
+    <div class="reveal">
+      <div class="sec-label">NETWORK</div>
+      <div class="sec-title">OUR<br>NETWORK</div>
+      <div class="sec-title-italic">― 福岡から広がる接点</div>
+      <p style="font-size:0.88rem; line-height:2.2; color:var(--grey-light);">
+        スポーツ・ビジネス・地域の3つの領域に広がるネットワーク。FOOTCROWN UNITEDを通じて、新しいつながりと可能性が生まれます。
+      </p>
+    </div>
+    <div class="network-list reveal" style="transition-delay:0.2s">
+      <div class="network-item">
+        <div class="network-dot"></div>
+        <div class="network-item-text">
+          <h4>フットサル・サッカーチーム</h4>
+          <p>地域クラブ・社会人チームとのネットワーク</p>
+        </div>
+      </div>
+      <div class="network-item">
+        <div class="network-dot"></div>
+        <div class="network-item-text">
+          <h4>スポーツ関連企業</h4>
+          <p>用品メーカー・施設・トレーニング機関</p>
+        </div>
+      </div>
+      <div class="network-item">
+        <div class="network-dot"></div>
+        <div class="network-item-text">
+          <h4>地域ビジネスパートナー</h4>
+          <p>福岡を拠点とする企業・個人事業主</p>
+        </div>
+      </div>
+      <div class="network-item">
+        <div class="network-dot"></div>
+        <div class="network-item-text">
+          <h4>メディア・コンテンツ</h4>
+          <p>SNS・動画・イベントを通じた情報発信</p>
+        </div>
+      </div>
+      <div class="network-item">
+        <div class="network-dot"></div>
+        <div class="network-item-text">
+          <h4>教育・育成機関</h4>
+          <p>スクール・アカデミーとの連携</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution" style="padding: 8rem 6vw;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="reveal">
+      <div class="sec-label">SOLUTION</div>
+      <div class="sec-title">WHAT WE<br>OFFER</div>
+      <div class="sec-title-italic">― FTCN United FUKUOKAができること</div>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-item reveal">
+        <div class="solution-icon">⚽</div>
+        <div class="solution-body">
+          <h3>チーム・クラブ運営支援</h3>
+          <p>チーム設立から運営まで、スポーツクラブの立ち上げと持続的な運営をトータルでサポートします。</p>
+        </div>
+      </div>
+      <div class="solution-item reveal" style="transition-delay:0.1s">
+        <div class="solution-icon">🤝</div>
+        <div class="solution-body">
+          <h3>スポンサーシップ設計</h3>
+          <p>企業とスポーツチームを結ぶスポンサーシップのプログラムを設計。双方にとって価値ある関係を構築します。</p>
+        </div>
+      </div>
+      <div class="solution-item reveal" style="transition-delay:0.15s">
+        <div class="solution-icon">📣</div>
+        <div class="solution-body">
+          <h3>イベント・大会企画</h3>
+          <p>フットボールイベントや大会の企画・運営。地域を巻き込んだ記憶に残る体験を創出します。</p>
+        </div>
+      </div>
+      <div class="solution-item reveal" style="transition-delay:0.2s">
+        <div class="solution-icon">📱</div>
+        <div class="solution-body">
+          <h3>ブランディング・情報発信</h3>
+          <p>SNSやコンテンツを活用したスポーツチーム・企業のブランディングと認知拡大を支援します。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PARTNERSHIP -->
+<section class="partnership" style="padding: 8rem 6vw;">
+  <div class="partnership-inner reveal">
+    <div class="sec-label" style="justify-content:center;">PARTNERSHIP</div>
+    <div class="sec-title">JOIN US</div>
+    <div class="sec-title-italic">― 一緒に、福岡の頂点を目指す</div>
+    <p>
+      FOOTCROWN UNITED FUKUOKAは、ともに歩むパートナーを求めています。スポーツを通じて地域に価値を生み出したいと考える企業・個人の方、まずは話しましょう。
+    </p>
+    <div class="partnership-types">
+      <div class="p-type">オフィシャルスポンサー</div>
+      <div class="p-type">サプライヤー</div>
+      <div class="p-type">メディアパートナー</div>
+      <div class="p-type">コミュニティパートナー</div>
+      <div class="p-type">個人サポーター</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner reveal">
+    <div class="sec-label" style="justify-content:center; margin-bottom:1.5rem;">CONTACT</div>
+    <div class="cta-title">READY TO<br>JOIN THE<br>CROWN?</div>
+    <div class="cta-sub">― 次の一歩を、一緒に。</div>
+    <p class="cta-text">
+      パートナーシップのご相談、取材・メディアのお問い合わせ、<br>
+      活動への参加希望など、お気軽にご連絡ください。
+    </p>
+    <div class="cta-btns">
+      <a href="mailto:info@footcrown.jp" class="btn-gold">お問い合わせ</a>
+      <a href="#" class="btn-outline">資料を請求する</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">FOOTCROWN UNITED FUKUOKA</div>
+    <div style="font-size:0.6rem; color:var(--grey); letter-spacing:0.2em; margin-top:4px;">POWERED BY iDEA note</div>
+  </div>
+  <div class="footer-copy">© 2024 FOOTCROWN UNITED FUKUOKA. All rights reserved.</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
